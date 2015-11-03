@@ -1,0 +1,3 @@
+* test
+* SDL build configuration
+* SDL initial stuff (in_sdl, sys_sdl etc)
