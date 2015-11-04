@@ -381,4 +381,9 @@
   <ItemGroup>
     <Text Include="..\..\TODO.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\WinQuake\winquake.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
 </Project>
