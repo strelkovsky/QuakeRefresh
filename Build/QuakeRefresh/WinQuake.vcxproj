@@ -126,8 +126,6 @@
     <ClInclude Include="..\..\WinQuake\quakedef.h" />
     <ClInclude Include="..\..\WinQuake\render.h" />
     <ClInclude Include="..\..\WinQuake\resource.h" />
-    <ClInclude Include="..\..\WinQuake\r_local.h" />
-    <ClInclude Include="..\..\WinQuake\r_shared.h" />
     <ClInclude Include="..\..\WinQuake\sbar.h" />
     <ClInclude Include="..\..\WinQuake\screen.h" />
     <ClInclude Include="..\..\WinQuake\server.h" />

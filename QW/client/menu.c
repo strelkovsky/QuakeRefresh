@@ -405,11 +405,7 @@ void M_AdjustSliders (int dir)
 		Cvar_SetValue ("sensitivity", sensitivity.value);
 		break;
 	case 6:	// music volume
-#ifdef _WIN32
 		bgmvolume.value += dir * 1.0;
-#else
-		bgmvolume.value += dir * 0.1;
-#endif
 		if (bgmvolume.value < 0)
 			bgmvolume.value = 0;
 		if (bgmvolume.value > 1)
@@ -547,15 +543,11 @@ void M_Options_Draw (void)
 	if (vid_menudrawfn)
 		M_Print (16, 144, "         Video Options");
 
-#ifdef _WIN32
 	if (modestate == MS_WINDOWED)
 	{
-#endif
 		M_Print (16, 152, "             Use Mouse");
 		M_DrawCheckbox (220, 152, _windowed_mouse.value);
-#ifdef _WIN32
 	}
-#endif
 
 // cursor
 	M_DrawCharacter (200, 32 + options_cursor*8, 12+((int)(realtime*4)&1));
@@ -625,9 +617,7 @@ void M_Options_Key (int k)
 	}
 
 	if ((options_cursor == 15) 
-#ifdef _WIN32
 	&& (modestate != MS_WINDOWED)
-#endif
 	)
 	{
 		if (k == K_UPARROW)

@@ -21,11 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "quakedef.h"
 #include "winquake.h"
-#ifdef _WIN32
 #include "winsock.h"
-#else
-#include <netinet/in.h>
-#endif
 
 
 // we need to declare some mouse variables here, because the menu system
@@ -409,9 +405,7 @@ void CL_Disconnect (void)
 
 	connect_time = -1;
 
-#ifdef _WIN32
 	SetWindowText (mainwindow, "QuakeWorld: disconnected");
-#endif
 
 // stop sounds (especially looping!)
 	S_StopAllSounds (true);
@@ -838,10 +832,10 @@ void CL_ConnectionlessPacket (void)
 			Con_Printf ("Command packet from remote host.  Ignored.\n");
 			return;
 		}
-#ifdef _WIN32
+
 		ShowWindow (mainwindow, SW_RESTORE);
 		SetForegroundWindow (mainwindow);
-#endif
+
 		s = MSG_ReadString ();
 
 		strncpy(cmdtext, s, sizeof(cmdtext) - 1);
@@ -1459,35 +1453,18 @@ void Host_Init (quakeparms_t *parms)
 	host_colormap = (byte *)COM_LoadHunkFile ("gfx/colormap.lmp");
 	if (!host_colormap)
 		Sys_Error ("Couldn't load gfx/colormap.lmp");
-#ifdef __linux__
-	IN_Init ();
-	CDAudio_Init ();
-	VID_Init (host_basepal);
-	Draw_Init ();
-	SCR_Init ();
-	R_Init ();
 
-//	S_Init ();		// S_Init is now done as part of VID. Sigh.
-	
-	cls.state = ca_disconnected;
-	Sbar_Init ();
-	CL_Init ();
-#else
 	VID_Init (host_basepal);
 	Draw_Init ();
 	SCR_Init ();
 	R_Init ();
-//	S_Init ();		// S_Init is now done as part of VID. Sigh.
-#ifdef GLQUAKE
 	S_Init();
-#endif
 
 	cls.state = ca_disconnected;
 	CDAudio_Init ();
 	Sbar_Init ();
 	CL_Init ();
 	IN_Init ();
-#endif
 
 	Cbuf_InsertText ("exec quake.rc\n");
 	Cbuf_AddText ("echo Type connect <internet address> or use GameSpy to connect to a game.\n");

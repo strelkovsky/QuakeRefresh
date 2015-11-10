@@ -23,9 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 //define	PARANOID			// speed sapping error checking
 
-#ifdef _WIN32
 #pragma warning( disable : 4244 4127 4201 4214 4514 4305 4115 4018)
-#endif
 
 #define id386	0
 
@@ -57,12 +55,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "render.h"
 #include "client.h"
 
-#ifdef GLQUAKE
 #include "gl_model.h"
-#else
-#include "model.h"
-#include "d_iface.h"
-#endif
 
 #include "input.h"
 #include "keys.h"
@@ -73,9 +66,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "cdaudio.h"
 #include "pmove.h"
 
-#ifdef GLQUAKE
 #include "glquake.h"
-#endif
 
 #ifndef max
 #define max(a,b) ((a) > (b) ? (a) : (b))

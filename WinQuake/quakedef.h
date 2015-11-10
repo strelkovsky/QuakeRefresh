@@ -32,11 +32,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 //define	PARANOID			// speed sapping error checking
 
-#ifdef QUAKE2
-#define	GAMENAME	"id1"		// directory to look in by default
-#else
 #define	GAMENAME	"id1"
-#endif
 
 #include <math.h>
 #include <string.h>
@@ -242,12 +238,7 @@ typedef struct
 #include "progs.h"
 #include "server.h"
 
-#ifdef GLQUAKE
 #include "gl_model.h"
-#else
-#include "model.h"
-#include "d_iface.h"
-#endif
 
 #include "input.h"
 #include "world.h"
@@ -258,9 +249,7 @@ typedef struct
 #include "crc.h"
 #include "cdaudio.h"
 
-#ifdef GLQUAKE
 #include "glquake.h"
-#endif
 
 //=============================================================================
 

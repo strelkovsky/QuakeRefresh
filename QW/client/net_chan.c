@@ -19,10 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include "quakedef.h"
-
-#ifdef _WIN32
 #include "winquake.h"
-#endif
 
 #define	PACKET_HEADER	8
 
@@ -91,11 +88,7 @@ void Netchan_Init (void)
 	int		port;
 
 	// pick a port value that should be nice and random
-#ifdef _WIN32
 	port = ((int)(timeGetTime()*1000) * time(NULL)) & 0xffff;
-#else
-	port = ((int)(getpid()+getuid()*1000) * time(NULL)) & 0xffff;
-#endif
 
 	Cvar_RegisterVariable (&showpackets);
 	Cvar_RegisterVariable (&showdrop);

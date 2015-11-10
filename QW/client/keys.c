@@ -205,11 +205,9 @@ Interactive line editing and console scrollback
 */
 void Key_Console (int key)
 {
-#ifdef _WIN32
 	int		i;
 	HANDLE	th;
 	char	*clipText, *textCopied;
-#endif
 	
 	if (key == K_ENTER)
 	{	// backslash text are commands, else chat
@@ -311,7 +309,6 @@ void Key_Console (int key)
 		return;
 	}
 	
-#ifdef _WIN32
 	if ((key=='V' || key=='v') && GetKeyState(VK_CONTROL)<0) {
 		if (OpenClipboard(NULL)) {
 			th = GetClipboardData(CF_TEXT);
@@ -337,7 +334,6 @@ void Key_Console (int key)
 		return;
 		}
 	}
-#endif
 
 	if (key < 32 || key > 127)
 		return;	// non printable

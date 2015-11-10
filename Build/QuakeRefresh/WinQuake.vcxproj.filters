@@ -129,12 +129,6 @@
     <ClInclude Include="..\..\WinQuake\quakedef.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\WinQuake\r_local.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\WinQuake\r_shared.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\WinQuake\render.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -88,11 +88,8 @@ void GL_Bind (int texnum)
 	if (currenttexture == texnum)
 		return;
 	currenttexture = texnum;
-#ifdef _WIN32
+
 	bindTexFunc (GL_TEXTURE_2D, texnum);
-#else
-	glBindTexture (GL_TEXTURE_2D, texnum);
-#endif
 }
 
 
@@ -788,11 +785,7 @@ void Draw_ConsoleBackground (int lines)
 //	y = lines-186;
 	y = lines-14;
 	if (!cls.download) {
-#ifdef __linux__
-		sprintf (ver, "LinuxGL (%4.2f) QuakeWorld", LINUX_VERSION);
-#else
 		sprintf (ver, "GL (%4.2f) QuakeWorld", GLQUAKE_VERSION);
-#endif
 		x = vid.conwidth - (strlen(ver)*8 + 11) - (vid.conwidth*8/320)*7;
 		for (i=0 ; i<strlen(ver) ; i++)
 			Draw_Character (x + i * 8, y, ver[i] | 0x80);
@@ -1367,9 +1360,8 @@ void GL_SelectTexture (GLenum target)
 {
 	if (!gl_mtexable)
 		return;
-#ifndef __linux__ // no multitexture under Linux yet
 	qglSelectTextureSGIS(target);
-#endif
+
 	if (target == oldtarget) 
 		return;
 	cnttextures[oldtarget-TEXTURE0_SGIS] = currenttexture;

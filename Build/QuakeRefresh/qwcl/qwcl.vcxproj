@@ -20,7 +20,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -51,11 +51,12 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;GLQUAKE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>..\..\..\QW\dxsdk\sdk\lib\dxguid.lib;Winmm.lib;opengl32.lib;dinput8.lib;DXGUID.LIB;WS2_32.lib;Comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -73,9 +74,101 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>..\..\..\QW\dxsdk\sdk\lib\dxguid.lib;dinput8.lib;DXGUID.LIB;WS2_32.lib;Comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\QW\client\anorms.h" />
+    <ClInclude Include="..\..\..\QW\client\anorm_dots.h" />
+    <ClInclude Include="..\..\..\QW\client\bothdefs.h" />
+    <ClInclude Include="..\..\..\QW\client\bspfile.h" />
+    <ClInclude Include="..\..\..\QW\client\cdaudio.h" />
+    <ClInclude Include="..\..\..\QW\client\client.h" />
+    <ClInclude Include="..\..\..\QW\client\cmd.h" />
+    <ClInclude Include="..\..\..\QW\client\common.h" />
+    <ClInclude Include="..\..\..\QW\client\console.h" />
+    <ClInclude Include="..\..\..\QW\client\crc.h" />
+    <ClInclude Include="..\..\..\QW\client\cvar.h" />
+    <ClInclude Include="..\..\..\QW\client\draw.h" />
+    <ClInclude Include="..\..\..\QW\client\glquake.h" />
+    <ClInclude Include="..\..\..\QW\client\glquake2.h" />
+    <ClInclude Include="..\..\..\QW\client\gl_model.h" />
+    <ClInclude Include="..\..\..\QW\client\gl_warp_sin.h" />
+    <ClInclude Include="..\..\..\QW\client\input.h" />
+    <ClInclude Include="..\..\..\QW\client\keys.h" />
+    <ClInclude Include="..\..\..\QW\client\mathlib.h" />
+    <ClInclude Include="..\..\..\QW\client\menu.h" />
+    <ClInclude Include="..\..\..\QW\client\modelgen.h" />
+    <ClInclude Include="..\..\..\QW\client\net.h" />
+    <ClInclude Include="..\..\..\QW\client\pmove.h" />
+    <ClInclude Include="..\..\..\QW\client\protocol.h" />
+    <ClInclude Include="..\..\..\QW\client\quakedef.h" />
+    <ClInclude Include="..\..\..\QW\client\render.h" />
+    <ClInclude Include="..\..\..\QW\client\resource.h" />
+    <ClInclude Include="..\..\..\QW\client\sbar.h" />
+    <ClInclude Include="..\..\..\QW\client\screen.h" />
+    <ClInclude Include="..\..\..\QW\client\sound.h" />
+    <ClInclude Include="..\..\..\QW\client\spritegn.h" />
+    <ClInclude Include="..\..\..\QW\client\sys.h" />
+    <ClInclude Include="..\..\..\QW\client\vid.h" />
+    <ClInclude Include="..\..\..\QW\client\view.h" />
+    <ClInclude Include="..\..\..\QW\client\wad.h" />
+    <ClInclude Include="..\..\..\QW\client\winquake.h" />
+    <ClInclude Include="..\..\..\QW\client\zone.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\QW\client\cd_win.c" />
+    <ClCompile Include="..\..\..\QW\client\cl_cam.c" />
+    <ClCompile Include="..\..\..\QW\client\cl_demo.c" />
+    <ClCompile Include="..\..\..\QW\client\cl_ents.c" />
+    <ClCompile Include="..\..\..\QW\client\cl_input.c" />
+    <ClCompile Include="..\..\..\QW\client\cl_main.c" />
+    <ClCompile Include="..\..\..\QW\client\cl_parse.c" />
+    <ClCompile Include="..\..\..\QW\client\cl_pred.c" />
+    <ClCompile Include="..\..\..\QW\client\cl_tent.c" />
+    <ClCompile Include="..\..\..\QW\client\cmd.c" />
+    <ClCompile Include="..\..\..\QW\client\common.c" />
+    <ClCompile Include="..\..\..\QW\client\console.c" />
+    <ClCompile Include="..\..\..\QW\client\crc.c" />
+    <ClCompile Include="..\..\..\QW\client\cvar.c" />
+    <ClCompile Include="..\..\..\QW\client\gl_draw.c" />
+    <ClCompile Include="..\..\..\QW\client\gl_mesh.c" />
+    <ClCompile Include="..\..\..\QW\client\gl_model.c" />
+    <ClCompile Include="..\..\..\QW\client\gl_ngraph.c" />
+    <ClCompile Include="..\..\..\QW\client\gl_refrag.c" />
+    <ClCompile Include="..\..\..\QW\client\gl_rlight.c" />
+    <ClCompile Include="..\..\..\QW\client\gl_rmain.c" />
+    <ClCompile Include="..\..\..\QW\client\gl_rmisc.c" />
+    <ClCompile Include="..\..\..\QW\client\gl_rsurf.c" />
+    <ClCompile Include="..\..\..\QW\client\gl_screen.c" />
+    <ClCompile Include="..\..\..\QW\client\gl_test.c" />
+    <ClCompile Include="..\..\..\QW\client\gl_vidnt.c" />
+    <ClCompile Include="..\..\..\QW\client\gl_warp.c" />
+    <ClCompile Include="..\..\..\QW\client\in_win.c" />
+    <ClCompile Include="..\..\..\QW\client\keys.c" />
+    <ClCompile Include="..\..\..\QW\client\mathlib.c" />
+    <ClCompile Include="..\..\..\QW\client\md4.c" />
+    <ClCompile Include="..\..\..\QW\client\menu.c" />
+    <ClCompile Include="..\..\..\QW\client\net_chan.c" />
+    <ClCompile Include="..\..\..\QW\client\net_wins.c" />
+    <ClCompile Include="..\..\..\QW\client\nonintel.c" />
+    <ClCompile Include="..\..\..\QW\client\pmove.c" />
+    <ClCompile Include="..\..\..\QW\client\pmovetst.c" />
+    <ClCompile Include="..\..\..\QW\client\r_part.c" />
+    <ClCompile Include="..\..\..\QW\client\sbar.c" />
+    <ClCompile Include="..\..\..\QW\client\skin.c" />
+    <ClCompile Include="..\..\..\QW\client\snd_dma.c" />
+    <ClCompile Include="..\..\..\QW\client\snd_mem.c" />
+    <ClCompile Include="..\..\..\QW\client\snd_mix.c" />
+    <ClCompile Include="..\..\..\QW\client\snd_win.c" />
+    <ClCompile Include="..\..\..\QW\client\sys_win.c" />
+    <ClCompile Include="..\..\..\QW\client\vid_win.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\QW\client\view.c" />
+    <ClCompile Include="..\..\..\QW\client\wad.c" />
+    <ClCompile Include="..\..\..\QW\client\zone.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
