@@ -51,7 +51,8 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;_LIB;SERVERONLY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\QW\client</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -66,7 +67,8 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;_LIB;SERVERONLY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\QW\client</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -76,6 +78,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\QW\server\asm_i386.h" />
+    <ClInclude Include="..\..\..\QW\server\progdefs.h" />
+    <ClInclude Include="..\..\..\QW\server\progs.h" />
+    <ClInclude Include="..\..\..\QW\server\pr_comp.h" />
+    <ClInclude Include="..\..\..\QW\server\quakeasm.h" />
+    <ClInclude Include="..\..\..\QW\server\qwsvdef.h" />
+    <ClInclude Include="..\..\..\QW\server\server.h" />
+    <ClInclude Include="..\..\..\QW\server\sys.h" />
+    <ClInclude Include="..\..\..\QW\server\world.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\QW\server\model.c" />
+    <ClCompile Include="..\..\..\QW\server\pr_cmds.c" />
+    <ClCompile Include="..\..\..\QW\server\pr_edict.c" />
+    <ClCompile Include="..\..\..\QW\server\pr_exec.c" />
+    <ClCompile Include="..\..\..\QW\server\sv_ccmds.c" />
+    <ClCompile Include="..\..\..\QW\server\sv_ents.c" />
+    <ClCompile Include="..\..\..\QW\server\sv_init.c" />
+    <ClCompile Include="..\..\..\QW\server\sv_main.c" />
+    <ClCompile Include="..\..\..\QW\server\sv_move.c" />
+    <ClCompile Include="..\..\..\QW\server\sv_nchan.c" />
+    <ClCompile Include="..\..\..\QW\server\sv_phys.c" />
+    <ClCompile Include="..\..\..\QW\server\sv_send.c" />
+    <ClCompile Include="..\..\..\QW\server\sv_user.c" />
+    <ClCompile Include="..\..\..\QW\server\sys_win.c" />
+    <ClCompile Include="..\..\..\QW\server\world.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

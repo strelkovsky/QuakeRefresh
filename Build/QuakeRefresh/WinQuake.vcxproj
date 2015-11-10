@@ -98,9 +98,6 @@
     <ClInclude Include="..\..\WinQuake\cvar.h" />
     <ClInclude Include="..\..\WinQuake\dosisms.h" />
     <ClInclude Include="..\..\WinQuake\draw.h" />
-    <ClInclude Include="..\..\WinQuake\d_iface.h" />
-    <ClInclude Include="..\..\WinQuake\d_ifacea.h" />
-    <ClInclude Include="..\..\WinQuake\d_local.h" />
     <ClInclude Include="..\..\WinQuake\glquake.h" />
     <ClInclude Include="..\..\WinQuake\glquake2.h" />
     <ClInclude Include="..\..\WinQuake\gl_model.h" />
@@ -109,7 +106,6 @@
     <ClInclude Include="..\..\WinQuake\keys.h" />
     <ClInclude Include="..\..\WinQuake\mathlib.h" />
     <ClInclude Include="..\..\WinQuake\menu.h" />
-    <ClInclude Include="..\..\WinQuake\model.h" />
     <ClInclude Include="..\..\WinQuake\modelgen.h" />
     <ClInclude Include="..\..\WinQuake\mpdosock.h" />
     <ClInclude Include="..\..\WinQuake\net.h" />
@@ -178,10 +174,6 @@
     <ClCompile Include="..\..\WinQuake\keys.c" />
     <ClCompile Include="..\..\WinQuake\mathlib.c" />
     <ClCompile Include="..\..\WinQuake\menu.c" />
-    <ClCompile Include="..\..\WinQuake\model.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\WinQuake\net_dgrm.c" />
     <ClCompile Include="..\..\WinQuake\net_loop.c" />
     <ClCompile Include="..\..\WinQuake\net_main.c" />
