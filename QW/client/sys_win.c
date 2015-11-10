@@ -58,6 +58,8 @@ void Sys_DebugLog(char *file, char *fmt, ...)
 {
     va_list argptr; 
     static char data[1024];
+
+	// TODO : replace with FILE
     int fd;
     
     va_start(argptr, fmt);
@@ -173,8 +175,6 @@ Sys_Init
 */
 void Sys_Init (void)
 {
-	LARGE_INTEGER	PerformanceFreq;
-	unsigned int	lowpart, highpart;
 	OSVERSIONINFO	vinfo;
 
 #ifndef SERVERONLY
@@ -199,29 +199,6 @@ void Sys_Init (void)
 
 	MaskExceptions ();
 	Sys_SetFPCW ();
-
-#if 0
-	if (!QueryPerformanceFrequency (&PerformanceFreq))
-		Sys_Error ("No hardware timer available");
-
-// get 32 out of the 64 time bits such that we have around
-// 1 microsecond resolution
-	lowpart = (unsigned int)PerformanceFreq.LowPart;
-	highpart = (unsigned int)PerformanceFreq.HighPart;
-	lowshift = 0;
-
-	while (highpart || (lowpart > 2000000.0))
-	{
-		lowshift++;
-		lowpart >>= 1;
-		lowpart |= (highpart & 1) << 31;
-		highpart >>= 1;
-	}
-
-	pfreq = 1.0 / (double)lowpart;
-
-	Sys_InitFloatTime ();
-#endif
 
 	// make sure the timer is high precision, otherwise
 	// NT gets 18ms resolution
@@ -248,8 +225,7 @@ void Sys_Init (void)
 void Sys_Error (char *error, ...)
 {
 	va_list		argptr;
-	char		text[1024], text2[1024];
-	DWORD		dummy;
+	char		text[1024];
 
 	Host_Shutdown ();
 
@@ -269,8 +245,6 @@ void Sys_Error (char *error, ...)
 void Sys_Printf (char *fmt, ...)
 {
 	va_list		argptr;
-	char		text[1024];
-	DWORD		dummy;
 	
 	va_start (argptr,fmt);
 	vprintf (fmt, argptr);
@@ -393,7 +367,6 @@ double Sys_DoubleTime (void)
 	static DWORD starttime;
 	static qboolean first = true;
 	DWORD now;
-	double t;
 
 	now = timeGetTime();
 
@@ -417,7 +390,6 @@ char *Sys_ConsoleInput (void)
 	static char	text[256];
 	static int		len;
 	INPUT_RECORD	recs[1024];
-	int		count;
 	int		i, dummy;
 	int		ch, numread, numevents;
 	HANDLE	th;
@@ -570,7 +542,6 @@ HWND		hwnd_dialog;
 
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-    MSG				msg;
 	quakeparms_t	parms;
 	double			time, oldtime, newtime;
 	MEMORYSTATUS	lpBuffer;
