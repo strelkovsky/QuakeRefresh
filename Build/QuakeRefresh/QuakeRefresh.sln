@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QuakeRefresh", "QuakeRefresh.vcxproj", "{D494A653-A080-4F4F-978F-38D6C9CDB7B6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinQuake", "QuakeRefresh.vcxproj", "{D494A653-A080-4F4F-978F-38D6C9CDB7B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "QuakeWorld", "QuakeWorld", "{A1969A2A-75A8-4F7E-A64A-079A17E2108C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qwcl", "qwcl\qwcl.vcxproj", "{C508879E-3E3D-4DD7-AB51-B1D4847EE717}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qwsv", "qwsv\qwsv.vcxproj", "{51B1FA6F-440A-4561-889A-31DF2C59D285}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +21,20 @@ Global
 		{D494A653-A080-4F4F-978F-38D6C9CDB7B6}.Debug|Win32.Build.0 = Debug|Win32
 		{D494A653-A080-4F4F-978F-38D6C9CDB7B6}.Release|Win32.ActiveCfg = Release|Win32
 		{D494A653-A080-4F4F-978F-38D6C9CDB7B6}.Release|Win32.Build.0 = Release|Win32
+		{C508879E-3E3D-4DD7-AB51-B1D4847EE717}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C508879E-3E3D-4DD7-AB51-B1D4847EE717}.Debug|Win32.Build.0 = Debug|Win32
+		{C508879E-3E3D-4DD7-AB51-B1D4847EE717}.Release|Win32.ActiveCfg = Release|Win32
+		{C508879E-3E3D-4DD7-AB51-B1D4847EE717}.Release|Win32.Build.0 = Release|Win32
+		{51B1FA6F-440A-4561-889A-31DF2C59D285}.Debug|Win32.ActiveCfg = Debug|Win32
+		{51B1FA6F-440A-4561-889A-31DF2C59D285}.Debug|Win32.Build.0 = Debug|Win32
+		{51B1FA6F-440A-4561-889A-31DF2C59D285}.Release|Win32.ActiveCfg = Release|Win32
+		{51B1FA6F-440A-4561-889A-31DF2C59D285}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C508879E-3E3D-4DD7-AB51-B1D4847EE717} = {A1969A2A-75A8-4F7E-A64A-079A17E2108C}
+		{51B1FA6F-440A-4561-889A-31DF2C59D285} = {A1969A2A-75A8-4F7E-A64A-079A17E2108C}
 	EndGlobalSection
 EndGlobal
