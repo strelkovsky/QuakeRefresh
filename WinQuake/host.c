@@ -55,6 +55,8 @@ byte		*host_colormap;
 
 cvar_t	host_framerate = {"host_framerate","0"};	// set for slow motion
 cvar_t	host_speeds = {"host_speeds","0"};			// set for running times
+//@Strelkin
+cvar_t	max_fps = { "max_fps", "72", true };
 
 cvar_t	sys_ticrate = {"sys_ticrate","0.05"};
 cvar_t	serverprofile = {"serverprofile","0"};
@@ -207,6 +209,8 @@ void Host_InitLocal (void)
 	
 	Cvar_RegisterVariable (&host_framerate);
 	Cvar_RegisterVariable (&host_speeds);
+	//@Strelkin
+	Cvar_RegisterVariable(&max_fps);
 
 	Cvar_RegisterVariable (&sys_ticrate);
 	Cvar_RegisterVariable (&serverprofile);
@@ -497,7 +501,10 @@ qboolean Host_FilterTime (float time)
 {
 	realtime += time;
 
-	if (!cls.timedemo && realtime - oldrealtime < 1.0/72.0)
+	//@Strelkin
+	//if (!cls.timedemo && realtime - oldrealtime < 1.0/72.0)
+	if (max_fps.value < 1) Cvar_SetValue("max_fps", 72);
+	if (!cls.timedemo && realtime - oldrealtime < 1.0 / max_fps.value)
 		return false;		// framerate is too high
 
 	host_frametime = realtime - oldrealtime;

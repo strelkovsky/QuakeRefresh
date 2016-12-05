@@ -129,7 +129,6 @@ typedef struct {
 
 static vmode_t	modelist[MAX_MODE_LIST];
 static int		nummodes;
-static vmode_t	*pcurrentmode;
 
 int		aPage;					// Current active display page
 int		vPage;					// Current visible display page
