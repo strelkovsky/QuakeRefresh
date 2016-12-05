@@ -372,7 +372,8 @@ Con_Printf
 Handles cursor positioning, line wrapping, etc
 ================
 */
-#define	MAXPRINTMSG	4096
+// @Strelkin: increased from 4096 to 16384
+#define	MAXPRINTMSG	16384
 // FIXME: make a buffer size safe vsprintf?
 void Con_Printf (char *fmt, ...)
 {
@@ -383,7 +384,7 @@ void Con_Printf (char *fmt, ...)
 	va_start (argptr,fmt);
 	vsprintf (msg,fmt,argptr);
 	va_end (argptr);
-	
+
 // also echo to debugging console
 	Sys_Printf ("%s", msg);	// also echo to debugging console
 
@@ -396,6 +397,8 @@ void Con_Printf (char *fmt, ...)
 		
 	if (cls.state == ca_dedicated)
 		return;		// no graphics mode
+
+	
 
 // write it to the scrollable buffer
 	Con_Print (msg);

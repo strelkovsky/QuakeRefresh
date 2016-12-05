@@ -608,7 +608,9 @@ int MSG_ReadChar (void)
 {
 	int     c;
 	
-	if (msg_readcount+1 > net_message.cursize)
+	//@Strelkin
+	if (msg_readcount >= net_message.cursize)
+	//if (msg_readcount+1 > net_message.cursize)
 	{
 		msg_badread = true;
 		return -1;
@@ -624,7 +626,9 @@ int MSG_ReadByte (void)
 {
 	int     c;
 	
-	if (msg_readcount+1 > net_message.cursize)
+	//@Strelkin
+	if (msg_readcount >= net_message.cursize)
+	//if (msg_readcount+1 > net_message.cursize)
 	{
 		msg_badread = true;
 		return -1;
