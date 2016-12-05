@@ -63,6 +63,9 @@ typedef struct cvar_s
 	struct cvar_s *next;
 } cvar_t;
 
+//@Strelkin
+void	Cvar_List_f(void);
+
 void 	Cvar_RegisterVariable (cvar_t *variable);
 // registers a cvar that allready has the name, string, and optionally the
 // archive elements set.

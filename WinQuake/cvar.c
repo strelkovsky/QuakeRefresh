@@ -25,6 +25,48 @@ cvar_t	*cvar_vars;
 char	*cvar_null_string = "";
 
 /*
+=========
+Cvar_List
+=========
+*/
+void Cvar_List_f(void)
+{
+	cvar_t		*cvar;
+	char 		*partial;
+	int		len;
+	int		count;
+	
+	if (Cmd_Argc() > 1)
+	{
+		partial = Cmd_Argv(1);
+		len = Q_strlen(partial);
+	}
+	else
+	{
+		partial = NULL;
+		len = 0;
+	}
+	
+	count = 0;
+	for (cvar = cvar_vars; cvar; cvar = cvar->next)
+	{
+		if (partial && Q_strncmp(partial, cvar->name, len))
+		{
+			continue;
+		}
+		Con_Printf("\"%s\" is \"%s\"\n", cvar->name, cvar->string);
+		count++;
+	}
+	
+	Con_Printf("%i cvar(s)", count);
+	if (partial)
+	{
+		Con_Printf(" beginning with \"%s\"", partial);
+	}
+	Con_Printf("\n");
+}
+
+/*
 ============
 Cvar_FindVar
 ============
