@@ -26,7 +26,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "conproc.h"
 
 #define MINIMUM_WIN_MEMORY		0x0880000
-#define MAXIMUM_WIN_MEMORY		0x2000000 //@Strelkin -- 32 mb, was 16 mb
+#define MAXIMUM_WIN_MEMORY		0x04000000 //@Strelkin -- 64 mb, was 16 mb
 
 #define CONSOLE_ERROR_TIMEOUT	60.0	// # of seconds to wait on Sys_Error running
 										//  dedicated before exiting
@@ -771,6 +771,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	if (!parms.membase)
 		Sys_Error ("Not enough memory free; check disk space\n");
 
+	//@Strelkin TODO : remove
 	Sys_PageIn (parms.membase, parms.memsize);
 
 	tevent = CreateEvent(NULL, FALSE, FALSE, NULL);

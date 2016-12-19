@@ -442,9 +442,3 @@ void R_TimeRefresh_f (void)
 	glDrawBuffer  (GL_BACK);
 	GL_EndRendering ();
 }
-
-void D_FlushCaches (void)
-{
-}
-
-
