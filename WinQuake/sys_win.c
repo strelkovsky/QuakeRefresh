@@ -123,8 +123,6 @@ int filelength (FILE *f)
 	end = ftell (f);
 	fseek (f, pos, SEEK_SET);
 
-	VID_ForceLockState (t);
-
 	return end;
 }
 
@@ -152,8 +150,6 @@ int Sys_FileOpenRead (char *path, int *hndl)
 		retval = filelength(f);
 	}
 
-	VID_ForceLockState (t);
-
 	return retval;
 }
 
@@ -171,8 +167,6 @@ int Sys_FileOpenWrite (char *path)
 	if (!f)
 		Sys_Error ("Error opening %s: %s", path,strerror(errno));
 	sys_handles[i] = f;
-	
-	VID_ForceLockState (t);
 
 	return i;
 }
@@ -184,7 +178,6 @@ void Sys_FileClose (int handle)
 	t = VID_ForceUnlockedAndReturnState ();
 	fclose (sys_handles[handle]);
 	sys_handles[handle] = NULL;
-	VID_ForceLockState (t);
 }
 
 void Sys_FileSeek (int handle, int position)
@@ -193,7 +186,6 @@ void Sys_FileSeek (int handle, int position)
 
 	t = VID_ForceUnlockedAndReturnState ();
 	fseek (sys_handles[handle], position, SEEK_SET);
-	VID_ForceLockState (t);
 }
 
 int Sys_FileRead (int handle, void *dest, int count)
@@ -202,7 +194,6 @@ int Sys_FileRead (int handle, void *dest, int count)
 
 	t = VID_ForceUnlockedAndReturnState ();
 	x = fread (dest, 1, count, sys_handles[handle]);
-	VID_ForceLockState (t);
 	return x;
 }
 
@@ -212,7 +203,6 @@ int Sys_FileWrite (int handle, void *data, int count)
 
 	t = VID_ForceUnlockedAndReturnState ();
 	x = fwrite (data, 1, count, sys_handles[handle]);
-	VID_ForceLockState (t);
 	return x;
 }
 
@@ -235,7 +225,6 @@ int	Sys_FileTime (char *path)
 		retval = -1;
 	}
 	
-	VID_ForceLockState (t);
 	return retval;
 }
 
@@ -347,11 +336,11 @@ void Sys_Error (char *error, ...)
 		va_end (argptr);
 
 		sprintf (text2, "ERROR: %s\n", text);
-		WriteFile (houtput, text5, strlen (text5), &dummy, NULL);
-		WriteFile (houtput, text4, strlen (text4), &dummy, NULL);
-		WriteFile (houtput, text2, strlen (text2), &dummy, NULL);
-		WriteFile (houtput, text3, strlen (text3), &dummy, NULL);
-		WriteFile (houtput, text4, strlen (text4), &dummy, NULL);
+		WriteFile (houtput, text5, Q_strlen(text5), &dummy, NULL);
+		WriteFile (houtput, text4, Q_strlen(text4), &dummy, NULL);
+		WriteFile (houtput, text2, Q_strlen(text2), &dummy, NULL);
+		WriteFile (houtput, text3, Q_strlen(text3), &dummy, NULL);
+		WriteFile (houtput, text4, Q_strlen(text4), &dummy, NULL);
 
 
 		starttime = Sys_FloatTime ();
@@ -408,7 +397,7 @@ void Sys_Printf (char *fmt, ...)
 		vsprintf (text, fmt, argptr);
 		va_end (argptr);
 
-		WriteFile(houtput, text, strlen (text), &dummy, NULL);	
+		WriteFile(houtput, text, Q_strlen(text), &dummy, NULL);
 	}
 }
 
@@ -445,8 +434,6 @@ double Sys_FloatTime (void)
 	LARGE_INTEGER		PerformanceCount;
 	unsigned int		temp, t2;
 	double				time;
-
-	Sys_PushFPCW_SetHigh ();
 
 	QueryPerformanceCounter (&PerformanceCount);
 

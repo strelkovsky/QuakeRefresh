@@ -861,7 +861,7 @@ void COM_FileBase (char *in, char *out)
 {
 	char *s, *s2;
 	
-	s = in + strlen(in) - 1;
+	s = in + Q_strlen(in) - 1;
 	
 	while (s != in && *s != '.')
 		s--;
@@ -870,11 +870,11 @@ void COM_FileBase (char *in, char *out)
 	;
 	
 	if (s-s2 < 2)
-		strcpy (out,"?model?");
+		Q_strcpy (out,"?model?");
 	else
 	{
 		s--;
-		strncpy (out,s2+1, s-s2);
+		Q_strncpy (out,s2+1, s-s2);
 		out[s-s2] = 0;
 	}
 }
@@ -892,7 +892,7 @@ void COM_DefaultExtension (char *path, char *extension)
 // if path doesn't have a .EXT, append extension
 // (extension should include the .)
 //
-	src = path + strlen(path) - 1;
+	src = path + Q_strlen(path) - 1;
 
 	while (*src != '/' && src != path)
 	{
@@ -901,7 +901,7 @@ void COM_DefaultExtension (char *path, char *extension)
 		src--;
 	}
 
-	strcat (path, extension);
+	Q_strcat (path, extension);
 }
 
 
@@ -1387,7 +1387,7 @@ int COM_FindFile (char *filename, int *handle, FILE **file)
 	search = com_searchpaths;
 	if (proghack)
 	{	// gross hack to use quake 1 progs with quake 2 maps
-		if (!strcmp(filename, "progs.dat"))
+		if (!Q_strcmp(filename, "progs.dat"))
 			search = search->next;
 	}
 
@@ -1399,7 +1399,7 @@ int COM_FindFile (char *filename, int *handle, FILE **file)
 		// look through all the pak file elements
 			pak = search->pack;
 			for (i=0 ; i<pak->numfiles ; i++)
-				if (!strcmp (pak->files[i].name, filename))
+				if (!Q_strcmp (pak->files[i].name, filename))
 				{       // found it!
 					Sys_Printf ("PackFile: %s : %s\n",pak->filename, filename);
 					if (handle)
@@ -1422,7 +1422,7 @@ int COM_FindFile (char *filename, int *handle, FILE **file)
 	// check a file in the directory tree
 			if (!static_registered)
 			{       // if not a registered version, don't ever go beyond base
-				if ( strchr (filename, '/') || strchr (filename,'\\'))
+				if (Q_strchr(filename, '/') || Q_strchr(filename,'\\'))
 					continue;
 			}
 			
@@ -1434,10 +1434,10 @@ int COM_FindFile (char *filename, int *handle, FILE **file)
 				
 		// see if the file needs to be updated in the cache
 			if (!com_cachedir[0])
-				strcpy (cachepath, netpath);
+				Q_strcpy (cachepath, netpath);
 			else
 			{	
-				if ((strlen(netpath) < 2) || (netpath[1] != ':'))
+				if ((Q_strlen(netpath) < 2) || (netpath[1] != ':'))
 					sprintf (cachepath,"%s%s", com_cachedir, netpath);
 				else
 					sprintf (cachepath,"%s%s", com_cachedir, netpath+2);
@@ -1446,7 +1446,7 @@ int COM_FindFile (char *filename, int *handle, FILE **file)
 			
 				if (cachetime < findtime)
 					COM_CopyFile (netpath, cachepath);
-				strcpy (netpath, cachepath);
+				Q_strcpy (netpath, cachepath);
 			}	
 
 			Sys_Printf ("FindFile: %s\n",netpath);
@@ -1663,13 +1663,13 @@ pack_t *COM_LoadPackFile (char *packfile)
 // parse the directory
 	for (i=0 ; i<numpackfiles ; i++)
 	{
-		strcpy (newfiles[i].name, info[i].name);
+		Q_strcpy (newfiles[i].name, info[i].name);
 		newfiles[i].filepos = LittleLong(info[i].filepos);
 		newfiles[i].filelen = LittleLong(info[i].filelen);
 	}
 
 	pack = Hunk_Alloc (sizeof (pack_t));
-	strcpy (pack->filename, packfile);
+	Q_strcpy (pack->filename, packfile);
 	pack->handle = packhandle;
 	pack->numfiles = numpackfiles;
 	pack->files = newfiles;
@@ -1694,13 +1694,13 @@ void COM_AddGameDirectory (char *dir)
 	pack_t                  *pak;
 	char                    pakfile[MAX_OSPATH];
 
-	strcpy (com_gamedir, dir);
+	Q_strcpy (com_gamedir, dir);
 
 //
 // add the directory to the search path
 //
 	search = Hunk_Alloc (sizeof(searchpath_t));
-	strcpy (search->filename, dir);
+	Q_strcpy (search->filename, dir);
 	search->next = com_searchpaths;
 	com_searchpaths = search;
 
@@ -1742,11 +1742,11 @@ void COM_InitFilesystem (void)
 //
 	i = COM_CheckParm ("-basedir");
 	if (i && i < com_argc-1)
-		strcpy (basedir, com_argv[i+1]);
+		Q_strcpy (basedir, com_argv[i+1]);
 	else
-		strcpy (basedir, host_parms.basedir);
+		Q_strcpy (basedir, host_parms.basedir);
 
-	j = strlen (basedir);
+	j = Q_strlen (basedir);
 
 	if (j > 0)
 	{
@@ -1765,10 +1765,10 @@ void COM_InitFilesystem (void)
 		if (com_argv[i+1][0] == '-')
 			com_cachedir[0] = 0;
 		else
-			strcpy (com_cachedir, com_argv[i+1]);
+			Q_strcpy (com_cachedir, com_argv[i+1]);
 	}
 	else if (host_parms.cachedir)
-		strcpy (com_cachedir, host_parms.cachedir);
+		Q_strcpy (com_cachedir, host_parms.cachedir);
 	else
 		com_cachedir[0] = 0;
 
@@ -1808,14 +1808,14 @@ void COM_InitFilesystem (void)
 				break;
 			
 			search = Hunk_Alloc (sizeof(searchpath_t));
-			if ( !strcmp(COM_FileExtension(com_argv[i]), "pak") )
+			if ( !Q_strcmp(COM_FileExtension(com_argv[i]), "pak") )
 			{
 				search->pack = COM_LoadPackFile (com_argv[i]);
 				if (!search->pack)
 					Sys_Error ("Couldn't load packfile: %s", com_argv[i]);
 			}
 			else
-				strcpy (search->filename, com_argv[i]);
+				Q_strcpy (search->filename, com_argv[i]);
 			search->next = com_searchpaths;
 			com_searchpaths = search;
 		}

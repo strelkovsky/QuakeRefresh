@@ -237,7 +237,7 @@ void CL_ParseServerInfo (void)
 
 // parse signon message
 	str = MSG_ReadString ();
-	strncpy (cl.levelname, str, sizeof(cl.levelname)-1);
+	Q_strncpy (cl.levelname, str, sizeof(cl.levelname)-1);
 
 // seperate the printfs so the server message can have a color
 	Con_Printf("\n\n\35\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\36\37\n\n");
@@ -261,7 +261,7 @@ void CL_ParseServerInfo (void)
 			Con_Printf ("Server sent too many model precaches\n");
 			return;
 		}
-		strcpy (model_precache[nummodels], str);
+		Q_strcpy (model_precache[nummodels], str);
 		Mod_TouchModel (str);
 	}
 
@@ -277,7 +277,7 @@ void CL_ParseServerInfo (void)
 			Con_Printf ("Server sent too many sound precaches\n");
 			return;
 		}
-		strcpy (sound_precache[numsounds], str);
+		Q_strcpy (sound_precache[numsounds], str);
 		S_TouchSound (str);
 	}
 
@@ -830,7 +830,7 @@ void CL_ParseServerMessage (void)
 			i = MSG_ReadByte ();
 			if (i >= cl.maxclients)
 				Host_Error ("CL_ParseServerMessage: svc_updatename > MAX_SCOREBOARD");
-			strcpy (cl.scores[i].name, MSG_ReadString ());
+			Q_strcpy (cl.scores[i].name, MSG_ReadString ());
 			break;
 			
 		case svc_updatefrags:
@@ -873,12 +873,10 @@ void CL_ParseServerMessage (void)
 				if (cl.paused)
 				{
 					CDAudio_Pause ();
-					VID_HandlePause (true);
 				}
 				else
 				{
 					CDAudio_Resume ();
-					VID_HandlePause (false);
 				}
 			}
 			break;

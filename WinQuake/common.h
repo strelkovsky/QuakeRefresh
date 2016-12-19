@@ -131,6 +131,11 @@ char *Q_strrchr (char *s, char c);
 void Q_strcat (char *dest, char *src);
 int Q_strcmp (char *s1, char *s2);
 int Q_strncmp (char *s1, char *s2, int count);
+
+#define Q_strstr(d, s) strstr((d), (s))
+#define Q_strtok(d, s) strtok((d), (s))
+#define Q_strchr(d, s) strchr((d), (s))
+
 int Q_strcasecmp (char *s1, char *s2);
 int Q_strncasecmp (char *s1, char *s2, int n);
 int	Q_atoi (char *str);

@@ -333,8 +333,8 @@ char *CopyString (char *in)
 {
 	char	*out;
 	
-	out = Z_Malloc (strlen(in)+1);
-	strcpy (out, in);
+	out = Z_Malloc (Q_strlen(in)+1);
+	Q_strcpy (out, in);
 	return out;
 }
 
@@ -354,7 +354,7 @@ void Cmd_Alias_f (void)
 	}
 
 	s = Cmd_Argv(1);
-	if (strlen(s) >= MAX_ALIAS_NAME)
+	if (Q_strlen(s) >= MAX_ALIAS_NAME)
 	{
 		Con_Printf ("Alias name is too long\n");
 		return;
@@ -363,7 +363,7 @@ void Cmd_Alias_f (void)
 	// if the alias allready exists, reuse it
 	for (a = cmd_alias ; a ; a=a->next)
 	{
-		if (!strcmp(s, a->name))
+		if (!Q_strcmp(s, a->name))
 		{
 			Z_Free (a->value);
 			break;
@@ -376,18 +376,18 @@ void Cmd_Alias_f (void)
 		a->next = cmd_alias;
 		cmd_alias = a;
 	}
-	strcpy (a->name, s);	
+	Q_strcpy (a->name, s);
 
 // copy the rest of the command line
 	cmd[0] = 0;		// start out with a null string
 	c = Cmd_Argc();
 	for (i=2 ; i< c ; i++)
 	{
-		strcat (cmd, Cmd_Argv(i));
+		Q_strcat (cmd, Cmd_Argv(i));
 		if (i != c)
-			strcat (cmd, " ");
+			Q_strcat (cmd, " ");
 	}
-	strcat (cmd, "\n");
+	Q_strcat (cmd, "\n");
 	
 	a->value = CopyString (cmd);
 }

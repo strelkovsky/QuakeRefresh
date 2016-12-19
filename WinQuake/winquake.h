@@ -56,7 +56,6 @@ extern qboolean		ActiveApp, Minimized;
 extern qboolean	WinNT;
 
 int VID_ForceUnlockedAndReturnState (void);
-void VID_ForceLockState (int lk);
 
 void IN_ShowMouse (void);
 void IN_DeactivateMouse (void);

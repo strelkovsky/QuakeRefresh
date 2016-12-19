@@ -279,7 +279,6 @@ qboolean VID_AllocBuffers (int width, int height)
 
 	if (d_pzbuffer)
 	{
-		D_FlushCaches ();
 		Hunk_FreeToHighMark (VID_highhunkmark);
 		d_pzbuffer = NULL;
 	}
@@ -1796,20 +1795,6 @@ int VID_ForceUnlockedAndReturnState (void)
 
 	return lk;
 }
-
-
-void VID_ForceLockState (int lk)
-{
-
-	if (!dibdc && lk)
-	{
-		lockcount = 0;
-		VID_LockBuffer ();
-	}
-
-	lockcount = lk;
-}
-
 
 void	VID_SetPalette (unsigned char *palette)
 {
