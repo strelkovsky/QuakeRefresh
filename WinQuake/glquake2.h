@@ -28,42 +28,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <gl\gl.h>
 #include <gl\glu.h>
 
-void GL_BeginRendering (int *x, int *y, int *width, int *height);
-void GL_EndRendering (void);
-
-
-// Function prototypes for the Texture Object Extension routines
-typedef GLboolean (APIENTRY *ARETEXRESFUNCPTR)(GLsizei, const GLuint *,
-                    const GLboolean *);
-typedef void (APIENTRY *BINDTEXFUNCPTR)(GLenum, GLuint);
-typedef void (APIENTRY *DELTEXFUNCPTR)(GLsizei, const GLuint *);
-typedef void (APIENTRY *GENTEXFUNCPTR)(GLsizei, GLuint *);
-typedef GLboolean (APIENTRY *ISTEXFUNCPTR)(GLuint);
-typedef void (APIENTRY *PRIORTEXFUNCPTR)(GLsizei, const GLuint *,
-                    const GLclampf *);
-typedef void (APIENTRY *TEXSUBIMAGEPTR)(int, int, int, int, int, int, int, int, void *);
-
-extern	BINDTEXFUNCPTR bindTexFunc;
-extern	DELTEXFUNCPTR delTexFunc;
-extern	TEXSUBIMAGEPTR TexSubImage2DFunc;
-
-extern	int texture_extension_number;
-extern	int		texture_mode;
-
-extern	float	gldepthmin, gldepthmax;
-
-void GL_Upload32 (unsigned *data, int width, int height,  qboolean mipmap, qboolean alpha, qboolean modulate);
-void GL_Upload8 (byte *data, int width, int height,  qboolean mipmap, qboolean alpha, qboolean modulate);
-int GL_LoadTexture (char *identifier, int width, int height, byte *data, int mipmap, int alpha, int modulate);
-int GL_FindTexture (char *identifier);
-
-typedef struct
-{
-	float	x, y, z;
-	float	s, t;
-	float	r, g, b;
-} glvert_t;
-
 extern glvert_t glv;
 
 extern	int glx, gly, glwidth, glheight;
@@ -204,6 +168,3 @@ extern	cvar_t	gl_reporttjunctions;
 extern	int		gl_lightmap_format;
 extern	int		gl_solid_format;
 extern	int		gl_alpha_format;
-
-void R_TranslatePlayerSkin (int playernum);
-void GL_Bind (int texnum);

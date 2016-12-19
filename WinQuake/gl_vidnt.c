@@ -1555,6 +1555,7 @@ VID_Init
 void	VID_Init (unsigned char *palette)
 {
 	int		i, existingmode;
+	// @Strelkin TODO : remove findbpp, done and force set bpp=32
 	int		basenummodes, width, height, bpp, findbpp, done;
 	char	gldir[MAX_OSPATH];
 	HDC		hdc;
