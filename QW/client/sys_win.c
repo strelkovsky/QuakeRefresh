@@ -50,10 +50,6 @@ static HANDLE	tevent;
 
 void Sys_InitFloatTime (void);
 
-void MaskExceptions (void);
-void Sys_PopFPCW (void);
-void Sys_PushFPCW_SetHigh (void);
-
 void Sys_DebugLog(char *file, char *fmt, ...)
 {
     va_list argptr; 
@@ -116,7 +112,6 @@ int	Sys_FileTime (char *path)
 		retval = -1;
 	}
 	
-	VID_ForceLockState (t);
 	return retval;
 }
 
@@ -148,26 +143,6 @@ void Sys_MakeCodeWriteable (unsigned long startaddr, unsigned long length)
    		Sys_Error("Protection change failed\n");
 }
 
-#if !id386
-
-void Sys_SetFPCW(void)
-{
-}
-
-void Sys_PushFPCW_SetHigh(void)
-{
-}
-
-void Sys_PopFPCW(void)
-{
-}
-
-void MaskExceptions(void)
-{
-}
-
-#endif
-
 /*
 ================
 Sys_Init
@@ -196,9 +171,6 @@ void Sys_Init (void)
         1,            /* Maximum count       */
         "qwcl"); /* Semaphore name      */
 #endif
-
-	MaskExceptions ();
-	Sys_SetFPCW ();
 
 	// make sure the timer is high precision, otherwise
 	// NT gets 18ms resolution
@@ -282,8 +254,6 @@ double Sys_DoubleTime (void)
 	LARGE_INTEGER		PerformanceCount;
 	unsigned int		temp, t2;
 	double				time;
-
-	Sys_PushFPCW_SetHigh ();
 
 	QueryPerformanceCounter (&PerformanceCount);
 

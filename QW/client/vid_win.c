@@ -284,7 +284,6 @@ qboolean VID_AllocBuffers (int width, int height)
 
 	if (d_pzbuffer)
 	{
-		D_FlushCaches ();
 		Hunk_FreeToHighMark (VID_highhunkmark);
 		d_pzbuffer = NULL;
 	}
