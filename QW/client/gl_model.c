@@ -1580,7 +1580,7 @@ void Mod_LoadAliasModel (model_t *mod, void *buffer)
 		Sys_Error ("model %s has no vertices", mod->name);
 
 	if (pheader->numverts > MAXALIASVERTS)
-		Sys_Error ("model %s has too many vertices", mod->name);
+		Sys_Error ("model %s has too many vertices %d", mod->name, pheader->numverts);
 
 	pheader->numtris = LittleLong (pinmodel->numtris);
 

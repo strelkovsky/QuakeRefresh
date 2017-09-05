@@ -61,7 +61,7 @@ void Sys_DebugLog(char *file, char *fmt, ...)
     va_start(argptr, fmt);
     vsprintf(data, fmt, argptr);
     va_end(argptr);
-    fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
+    fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666, 1);
     write(fd, data, strlen(data));
     close(fd);
 };

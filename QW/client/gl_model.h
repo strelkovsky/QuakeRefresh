@@ -317,7 +317,7 @@ typedef struct {
 	maliasframedesc_t	frames[1];	// variable sized
 } aliashdr_t;
 
-#define	MAXALIASVERTS	1024
+#define	MAXALIASVERTS	2000 //@Strelkin -- was 1024
 #define	MAXALIASFRAMES	256
 #define	MAXALIASTRIS	2048
 extern	aliashdr_t	*pheader;

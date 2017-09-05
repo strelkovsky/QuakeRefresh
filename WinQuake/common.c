@@ -1240,7 +1240,7 @@ typedef struct
 } dpackheader_t;
 
 //@Strelkin
-#define MAX_FILES_IN_PACK      16384 //2048
+#define MAX_FILES_IN_PACK      2048
 
 char    com_cachedir[MAX_OSPATH];
 char    com_gamedir[MAX_OSPATH];
