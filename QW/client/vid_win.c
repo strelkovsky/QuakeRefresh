@@ -306,43 +306,6 @@ void initFatalError(void)
 	exit(EXIT_FAILURE);
 }
 
-#if 0 //def NEW_SUSPEND
-
-int VID_Suspend (MGLDC *dc, int flags)
-{
-	int i;
-	if (flags & MGL_DEACTIVATE)
-	{
-		IN_RestoreOriginalMouseState ();
-		CDAudio_Pause ();
-
-		// keep WM_PAINT from trying to redraw
-		in_mode_set = true;
-		block_drawing = true;
-	}
-	else if (flags & MGL_REACTIVATE)
-	{
-		IN_SetQuakeMouseState ();
-		// fix the leftover Alt from any Alt-Tab or the like that switched us away
-		ClearAllStates ();
-		CDAudio_Resume ();
-		in_mode_set = false;
-
-		block_drawing = false;
-//		vid.recalc_refdef = 1;
-		force_mode_set = 1;
-		i = msg_suppress_1;
-		msg_suppress_1 = 1;
-		VID_Fullscreen_f();
-		msg_suppress_1 = i;
-		force_mode_set = 0;
-	}
-
-	return 1;
-}
-
-#else
-
 int VID_Suspend (MGLDC *dc, int flags)
 {
 
@@ -385,8 +348,6 @@ int VID_Suspend (MGLDC *dc, int flags)
 	}
 
 }
-#endif
-
 
 void registerAllDispDrivers(void)
 {
@@ -2823,21 +2784,6 @@ VID_HandlePause
 */
 void VID_HandlePause (qboolean pause)
 {
-#if 0
-	if ((modestate == MS_WINDOWED) && _windowed_mouse.value)
-	{
-		if (pause)
-		{
-			IN_DeactivateMouse ();
-			IN_ShowMouse ();
-		}
-		else
-		{
-			IN_ActivateMouse ();
-			IN_HideMouse ();
-		}
-	}
-#endif
 }
 
 			
