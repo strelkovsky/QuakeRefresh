@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="__DEPRECATED">
+      <UniqueIdentifier>{4bf8b0fd-f93c-41ff-a7e8-f4dd077ca0af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\WinQuake\anorm_dots.h">
@@ -165,19 +168,25 @@
     <ClInclude Include="..\..\WinQuake\wad.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\WinQuake\winquake.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\WinQuake\world.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\WinQuake\zone.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\WinQuake\dosisms.h">
+    <ClInclude Include="..\..\WinQuake\strtools.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\WinQuake\strtools.h">
+    <ClInclude Include="..\..\WinQuake\d_local.h">
+      <Filter>__DEPRECATED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WinQuake\r_shared.h">
+      <Filter>__DEPRECATED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WinQuake\winquake.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WinQuake\winquake_sdl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -246,9 +255,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\WinQuake\gl_screen.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\WinQuake\gl_test.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\WinQuake\gl_vidnt.c">
@@ -359,10 +365,25 @@
     <ClCompile Include="..\..\WinQuake\zone.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\WinQuake\vid_sdl.cpp">
+    <ClCompile Include="..\..\WinQuake\vid_sdl.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\WinQuake\sys_sdl.cpp">
+    <ClCompile Include="..\..\WinQuake\in_sdl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WinQuake\sys_sdl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WinQuake\gl_vidnt_sdl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WinQuake\vid_sdl_gl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WinQuake\snd_sdl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WinQuake\cd_null.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

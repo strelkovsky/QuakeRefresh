@@ -888,8 +888,6 @@ void Host_Init (quakeparms_t *parms)
 		Draw_Init ();
 		SCR_Init ();
 		R_Init ();
-
-	// FIXME: doesn't use the new one-window approach yet
 		S_Init ();
 
 		CDAudio_Init ();

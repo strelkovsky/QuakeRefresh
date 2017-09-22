@@ -30,16 +30,16 @@ byte *S_Alloc(int size);
 ResampleSfx
 ================
 */
-void ResampleSfx(sfx_t *sfx, int inrate, byte *data)
+void ResampleSfx(sfx_t *sfx, int inrate, int inwidth, byte *data)
 {
 	int		outcount;
 	int		srcsample;
 	float	stepscale;
 	int		i;
-	int		samplefrac, fracstep;
+	int		sample, samplefrac, fracstep;
 	sfxcache_t	*sc;
 
-	sc = Cache_Check(&sfx->cache);
+	sc = sfx->cache.data;
 	if (!sc)
 		return;
 
@@ -51,162 +51,38 @@ void ResampleSfx(sfx_t *sfx, int inrate, byte *data)
 		sc->loopstart = sc->loopstart / stepscale;
 
 	sc->speed = shm->speed;
-	//	if (loadas8bit.value)
-	//		sc->width = 1;
-	//	else
-	//		sc->width = inwidth;
-	//	sc->stereo = 0;
+	if (loadas8bit.value)
+		sc->width = 1;
+	else
+		sc->width = inwidth;
+	sc->stereo = 0;
 
 	// resample / decimate to the current source rate
 
-	if (stepscale == 1/* && inwidth == 1*/ && sc->width == 1)
+	if (stepscale == 1 && inwidth == 1 && sc->width == 1)
 	{
 		// fast special case
-		// LordHavoc: I do not serve the readability gods...
-		int *indata, *outdata;
-		int count4, count1;
-		count1 = outcount << sc->stereo;
-		count4 = count1 >> 2;
-		indata = (void *)data;
-		outdata = (void *)sc->data;
-		while (count4--)
-			*outdata++ = *indata++ ^ 0x80808080;
-		if (count1 & 2)
-			((short*)outdata)[0] = ((short*)indata)[0] ^ 0x8080;
-		if (count1 & 1)
-			((char*)outdata)[2] = ((char*)indata)[2] ^ 0x80;
-		/*
-		if (sc->stereo) // LordHavoc: stereo sound support
-		{
-		for (i=0 ; i<(outcount<<1) ; i++)
-		((signed char *)sc->data)[i] = (int)( (unsigned char)(data[i]) - 128);
-		}
-		else
-		{
-		for (i=0 ; i<outcount ; i++)
-		((signed char *)sc->data)[i] = (int)( (unsigned char)(data[i]) - 128);
-		}
-		*/
-	}
-	else if (stepscale == 1/* && inwidth == 2*/ && sc->width == 2) // LordHavoc: quick case for 16bit
-	{
-		if (sc->stereo) // LordHavoc: stereo sound support
-			for (i = 0; i<outcount * 2; i++)
-				((short *)sc->data)[i] = LittleShort(((short *)data)[i]);
-		else
-			for (i = 0; i<outcount; i++)
-				((short *)sc->data)[i] = LittleShort(((short *)data)[i]);
+		for (i = 0; i<outcount; i++)
+			((signed char *)sc->data)[i]
+			= (int)((unsigned char)(data[i]) - 128);
 	}
 	else
 	{
 		// general case
-		Con_DPrintf("ResampleSfx: resampling sound %s\n", sfx->name);
 		samplefrac = 0;
 		fracstep = stepscale * 256;
-		if ((fracstep & 255) == 0) // skipping points on perfect multiple
+		for (i = 0; i<outcount; i++)
 		{
-			srcsample = 0;
-			fracstep >>= 8;
-			if (sc->width == 2)
-			{
-				short *out = (void *)sc->data, *in = (void *)data;
-				if (sc->stereo) // LordHavoc: stereo sound support
-				{
-					fracstep <<= 1;
-					for (i = 0; i<outcount;)
-					{
-						*out++ = (short)LittleShort(in[srcsample]);
-						*out++ = (short)LittleShort(in[srcsample + 1]);
-						srcsample += fracstep;
-					}
-				}
-				else
-				{
-					for (i = 0; i<outcount; i++)
-					{
-						*out++ = (short)LittleShort(in[srcsample]);
-						srcsample += fracstep;
-					}
-				}
-			}
+			srcsample = samplefrac >> 8;
+			samplefrac += fracstep;
+			if (inwidth == 2)
+				sample = LittleShort(((short *)data)[srcsample]);
 			else
-			{
-				signed char *out = (void *)sc->data, *in = (void *)data;
-				if (sc->stereo) // LordHavoc: stereo sound support
-				{
-					fracstep <<= 1;
-					for (i = 0; i<outcount;)
-					{
-						*out++ = (signed char)in[srcsample] - 128;
-						*out++ = (signed char)in[srcsample + 1] - 128;
-						srcsample += fracstep;
-					}
-				}
-				else
-				{
-					for (i = 0; i<outcount; i++)
-					{
-						*out++ = (signed char)in[srcsample] - 128;
-						srcsample += fracstep;
-					}
-				}
-			}
-		}
-		else
-		{
-			int sample;
+				sample = (int)((unsigned char)(data[srcsample]) - 128) << 8;
 			if (sc->width == 2)
-			{
-				short *out = (void *)sc->data, *in = (void *)data;
-				if (sc->stereo) // LordHavoc: stereo sound support
-				{
-					for (i = 0; i<outcount;)
-					{
-						srcsample = (samplefrac >> 7) & ~1;
-						samplefrac += fracstep;
-						sample = (LittleShort(in[srcsample]) * (256 - (samplefrac & 255)) + LittleShort(in[srcsample + 2]) * (samplefrac & 255)) >> 8;
-						*out++ = (short)sample;
-						sample = (LittleShort(in[srcsample + 1]) * (256 - (samplefrac & 255)) + LittleShort(in[srcsample + 3]) * (samplefrac & 255)) >> 8;
-						*out++ = (short)sample;
-					}
-				}
-				else
-				{
-					for (i = 0; i<outcount; i++)
-					{
-						srcsample = samplefrac >> 8;
-						samplefrac += fracstep;
-						sample = (LittleShort(in[srcsample]) * (256 - (samplefrac & 255)) + LittleShort(in[srcsample + 1]) * (samplefrac & 255)) >> 8;
-						*out++ = (short)sample;
-					}
-				}
-			}
+				((short *)sc->data)[i] = sample;
 			else
-			{
-				signed char *out = (void *)sc->data, *in = (void *)data;
-				if (sc->stereo) // LordHavoc: stereo sound support
-				{
-					for (i = 0; i<outcount;)
-					{
-						srcsample = (samplefrac >> 7) & ~1;
-						samplefrac += fracstep;
-						sample = ((((unsigned char)in[srcsample] - 128) * (256 - (samplefrac & 255))) + (((unsigned char)in[srcsample + 2] - 128) * (samplefrac & 255))) >> 8;
-						*out++ = (signed char)sample;
-						sample = ((((unsigned char)in[srcsample + 1] - 128) * (256 - (samplefrac & 255))) + (((unsigned char)in[srcsample + 3] - 128) * (samplefrac & 255))) >> 8;
-						*out++ = (signed char)sample;
-					}
-				}
-				else
-				{
-					for (i = 0; i<outcount; i++)
-					{
-						srcsample = samplefrac >> 8;
-						samplefrac += fracstep;
-						sample = ((((unsigned char)in[srcsample] - 128) * (256 - (samplefrac & 255))) + (((unsigned char)in[srcsample + 1] - 128) * (samplefrac & 255))) >> 8;
-						*out++ = (signed char)sample;
-					}
-				}
-			}
+				((signed char *)sc->data)[i] = sample >> 8;
 		}
 	}
 }
@@ -228,19 +104,18 @@ sfxcache_t *S_LoadSound(sfx_t *s)
 	sfxcache_t	*sc;
 	byte	stackbuf[1 * 1024];		// avoid dirtying the cache heap
 
-									// see if still in memory
-	sc = Cache_Check(&s->cache);
+	sc = s->cache.data;
 	if (sc)
 		return sc;
 
 	//Con_Printf ("S_LoadSound: %x\n", (int)stackbuf);
 	// load it in
-	strcpy(namebuffer, "sound/");
-	strcat(namebuffer, s->name);
+	Q_strcpy(namebuffer, "sound/");
+	Q_strcat(namebuffer, s->name);
 
 	//	Con_Printf ("loading %s\n",namebuffer);
 
-	data = COM_LoadStackFile(namebuffer, stackbuf, sizeof(stackbuf), false);
+	data = COM_LoadStackFile(namebuffer, stackbuf, sizeof(stackbuf));
 
 	if (!data)
 	{
@@ -249,26 +124,21 @@ sfxcache_t *S_LoadSound(sfx_t *s)
 	}
 
 	info = GetWavinfo(s->name, data, com_filesize);
-	// LordHavoc: stereo sounds are now allowed (intended for music)
-	if (info.channels < 1 || info.channels > 2)
-	{
-		Con_Printf("%s has an unsupported number of channels (%i)\n", s->name, info.channels);
-		return NULL;
-	}
-	/*
 	if (info.channels != 1)
 	{
-	Con_Printf ("%s is a stereo sample\n",s->name);
-	return NULL;
+		Con_Printf("%s is a stereo sample\n", s->name);
+		return NULL;
 	}
-	*/
 
 	stepscale = (float)info.rate / shm->speed;
 	len = info.samples / stepscale;
 
 	len = len * info.width * info.channels;
 
-	sc = Cache_Alloc(&s->cache, len + sizeof(sfxcache_t), s->name);
+	// PANZER - remove caching
+	// Use malloc without "free" until game death
+	sc = malloc(len + sizeof(sfxcache_t));
+	s->cache.data = sc;
 	if (!sc)
 		return NULL;
 
@@ -276,9 +146,9 @@ sfxcache_t *S_LoadSound(sfx_t *s)
 	sc->loopstart = info.loopstart;
 	sc->speed = info.rate;
 	sc->width = info.width;
-	sc->stereo = info.channels == 2;
+	sc->stereo = info.channels;
 
-	ResampleSfx(s, sc->speed, data + info.dataofs);
+	ResampleSfx(s, sc->speed, sc->width, data + info.dataofs);
 
 	return sc;
 }
@@ -435,7 +305,7 @@ wavinfo_t GetWavinfo(char *name, byte *wav, int wavlength)
 		FindNextChunk("LIST");
 		if (data_p)
 		{
-			if (!Q_strncmp(data_p + 28, "mark", 4))
+			if (!strncmp(data_p + 28, "mark", 4))
 			{	// this is not a proper parse, but it works with cooledit...
 				data_p += 24;
 				i = GetLittleLong();	// samples in loop
@@ -461,7 +331,7 @@ wavinfo_t GetWavinfo(char *name, byte *wav, int wavlength)
 	if (info.samples)
 	{
 		if (samples < info.samples)
-			Host_Error("Sound %s has a bad loop length", name);
+			Sys_Error("Sound %s has a bad loop length", name);
 	}
 	else
 		info.samples = samples;

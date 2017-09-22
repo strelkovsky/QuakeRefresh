@@ -51,7 +51,6 @@ BRUSH MODELS
 //
 // in memory representation
 //
-// !!! if this is changed, it must be changed in asm_draw.h too !!!
 typedef struct
 {
 	vec3_t		position;
@@ -63,7 +62,6 @@ typedef struct
 
 
 // plane_t structure
-// !!! if this is changed, it must be changed in asm_i386.h too !!!
 typedef struct mplane_s
 {
 	vec3_t	normal;
@@ -95,7 +93,6 @@ typedef struct texture_s
 #define SURF_DRAWBACKGROUND	0x40
 #define SURF_UNDERWATER		0x80
 
-// !!! if this is changed, it must be changed in asm_draw.h too !!!
 typedef struct
 {
 	unsigned short	v[2];
@@ -280,7 +277,6 @@ typedef struct
 	maliasgroupframedesc_t	frames[1];
 } maliasgroup_t;
 
-// !!! if this is changed, it must be changed in asm_draw.h too !!!
 typedef struct mtriangle_s {
 	int					facesfront;
 	int					vertindex[3];
@@ -314,7 +310,7 @@ typedef struct {
 	maliasframedesc_t	frames[1];	// variable sized
 } aliashdr_t;
 
-#define	MAXALIASVERTS	1024
+#define	MAXALIASVERTS	2000//@Strelkin -- was 1024
 #define	MAXALIASFRAMES	256
 #define	MAXALIASTRIS	2048
 extern	aliashdr_t	*pheader;

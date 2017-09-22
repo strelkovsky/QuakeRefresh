@@ -65,7 +65,7 @@ typedef struct
 
 #define	SIGNONS		4			// signon messages to receive before connected
 
-#define	MAX_DLIGHTS		32
+#define	MAX_DLIGHTS		64 //@Strelkin -- was 32
 typedef struct
 {
 	vec3_t	origin;
@@ -77,7 +77,7 @@ typedef struct
 } dlight_t;
 
 
-#define	MAX_BEAMS	24
+#define	MAX_BEAMS	32 //@Strelkin -- was 24
 typedef struct
 {
 	int		entity;
@@ -86,7 +86,7 @@ typedef struct
 	vec3_t	start, end;
 } beam_t;
 
-#define	MAX_EFRAGS		640
+#define	MAX_EFRAGS		2048 //@Strelkin -- was 640
 
 #define	MAX_MAPSTRING	2048
 #define	MAX_DEMOS		8
@@ -203,7 +203,7 @@ typedef struct
 	struct model_s		*model_precache[MAX_MODELS];
 	struct sfx_s		*sound_precache[MAX_SOUNDS];
 
-	char		levelname[40];	// for display on solo scoreboard
+	char		levelname[128];	// for display on solo scoreboard //@Strelkin -- was 40.
 	int			viewentity;		// cl_entitites[cl.viewentity] = player
 	int			maxclients;
 	int			gametype;
@@ -257,8 +257,8 @@ extern	cvar_t	m_forward;
 extern	cvar_t	m_side;
 
 
-#define	MAX_TEMP_ENTITIES	64			// lightning bolts, etc
-#define	MAX_STATIC_ENTITIES	128			// torches, etc
+#define	MAX_TEMP_ENTITIES	256			// lightning bolts, etc //#Strelkin -- was 64
+#define	MAX_STATIC_ENTITIES	512			// torches, etc //@Strelkin -- was 64
 
 extern	client_state_t	cl;
 
@@ -291,7 +291,7 @@ void CL_Disconnect (void);
 void CL_Disconnect_f (void);
 void CL_NextDemo (void);
 
-#define			MAX_VISEDICTS	256
+#define			MAX_VISEDICTS	1024	//@Strelkin -- was 256
 extern	int				cl_numvisedicts;
 extern	entity_t		*cl_visedicts[MAX_VISEDICTS];
 

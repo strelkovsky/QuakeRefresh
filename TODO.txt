@@ -1,3 +1,24 @@
 * test
 * SDL build configuration
 * SDL initial stuff (in_sdl, sys_sdl etc)
+
+https://sourceforge.net/projects/quakespasm/
+
+http://quakeone.com/proquake/
+
+https://github.com/ezQuake/ezquake-source/commits/master?page=2
+
+Tutorials - http://www.quake-1.com/docs/quakesrc.org/104.html
+
+http://svn.icculus.org/twilight?limit_changes=0&view=rev&revision=391
+http://svn.icculus.org/twilight?limit_changes=0&view=rev&revision=392
+http://svn.icculus.org/twilight?limit_changes=0&view=rev&revision=393
+http://svn.icculus.org/twilight?limit_changes=0&view=rev&revision=396
+etc 
+
+http://svn.icculus.org/twilight?limit_changes=0&view=rev&revision=563
+
+https://www.quakewiki.net/archives/qer/tutorials/tutorial8.html
+
+
+

@@ -31,7 +31,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define	MAX_MAP_PLANES		32767
 #define	MAX_MAP_NODES		32767		// because negative shorts are contents
 #define	MAX_MAP_CLIPNODES	32767		//
-#define	MAX_MAP_LEAFS		8192
+#define	MAX_MAP_LEAFS		32767 //@Strelkin -- was 8192
 #define	MAX_MAP_VERTS		65535
 #define	MAX_MAP_FACES		65535
 #define	MAX_MAP_MARKSURFACES 65535
@@ -150,8 +150,6 @@ typedef struct
 #define	CONTENTS_CURRENT_UP		-13
 #define	CONTENTS_CURRENT_DOWN	-14
 
-
-// !!! if this is changed, it must be changed in asm_i386.h too !!!
 typedef struct
 {
 	int			planenum;

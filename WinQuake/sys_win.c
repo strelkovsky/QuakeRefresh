@@ -91,7 +91,7 @@ FILE IO
 ===============================================================================
 */
 
-#define	MAX_HANDLES		10
+#define	MAX_HANDLES		100 //@Strelkin -- was 10
 FILE	*sys_handles[MAX_HANDLES];
 
 int		findhandle (void)
@@ -123,6 +123,8 @@ int filelength (FILE *f)
 	end = ftell (f);
 	fseek (f, pos, SEEK_SET);
 
+	////VID_ForceLockState(t);
+
 	return end;
 }
 
@@ -150,6 +152,8 @@ int Sys_FileOpenRead (char *path, int *hndl)
 		retval = filelength(f);
 	}
 
+	////VID_ForceLockState(t);
+
 	return retval;
 }
 
@@ -168,6 +172,8 @@ int Sys_FileOpenWrite (char *path)
 		Sys_Error ("Error opening %s: %s", path,strerror(errno));
 	sys_handles[i] = f;
 
+	////VID_ForceLockState(t);
+
 	return i;
 }
 
@@ -178,6 +184,7 @@ void Sys_FileClose (int handle)
 	t = VID_ForceUnlockedAndReturnState ();
 	fclose (sys_handles[handle]);
 	sys_handles[handle] = NULL;
+	////VID_ForceLockState(t);
 }
 
 void Sys_FileSeek (int handle, int position)
@@ -186,6 +193,7 @@ void Sys_FileSeek (int handle, int position)
 
 	t = VID_ForceUnlockedAndReturnState ();
 	fseek (sys_handles[handle], position, SEEK_SET);
+	////VID_ForceLockState(t);
 }
 
 int Sys_FileRead (int handle, void *dest, int count)
@@ -194,6 +202,7 @@ int Sys_FileRead (int handle, void *dest, int count)
 
 	t = VID_ForceUnlockedAndReturnState ();
 	x = fread (dest, 1, count, sys_handles[handle]);
+	////VID_ForceLockState(t);
 	return x;
 }
 
@@ -203,6 +212,7 @@ int Sys_FileWrite (int handle, void *data, int count)
 
 	t = VID_ForceUnlockedAndReturnState ();
 	x = fwrite (data, 1, count, sys_handles[handle]);
+	////VID_ForceLockState(t);
 	return x;
 }
 
@@ -224,7 +234,7 @@ int	Sys_FileTime (char *path)
 	{
 		retval = -1;
 	}
-	
+	////VID_ForceLockState(t);
 	return retval;
 }
 

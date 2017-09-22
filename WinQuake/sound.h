@@ -8,7 +8,7 @@ of the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 See the GNU General Public License for more details.
 
@@ -25,7 +25,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define DEFAULT_SOUND_PACKET_VOLUME 255
 #define DEFAULT_SOUND_PACKET_ATTENUATION 1.0
 
-// !!! if this is changed, it much be changed in asm_i386.h too !!!
 typedef struct
 {
 	int left;
@@ -38,7 +37,6 @@ typedef struct sfx_s
 	cache_user_t	cache;
 } sfx_t;
 
-// !!! if this is changed, it much be changed in asm_i386.h too !!!
 typedef struct
 {
 	int 	length;
@@ -63,7 +61,6 @@ typedef struct
 	unsigned char	*buffer;
 } dma_t;
 
-// !!! if this is changed, it much be changed in asm_i386.h too !!!
 typedef struct
 {
 	sfx_t	*sfx;			// sfx number
@@ -89,24 +86,24 @@ typedef struct
 	int		dataofs;		// chunk starts this many bytes from file start
 } wavinfo_t;
 
-void S_Init (void);
-void S_Startup (void);
-void S_Shutdown (void);
-void S_StartSound (int entnum, int entchannel, sfx_t *sfx, vec3_t origin, float fvol,  float attenuation);
-void S_StaticSound (sfx_t *sfx, vec3_t origin, float vol, float attenuation);
-void S_StopSound (int entnum, int entchannel);
+void S_Init(void);
+void S_Startup(void);
+void S_Shutdown(void);
+void S_StartSound(int entnum, int entchannel, sfx_t *sfx, vec3_t origin, float fvol, float attenuation);
+void S_StaticSound(sfx_t *sfx, vec3_t origin, float vol, float attenuation);
+void S_StopSound(int entnum, int entchannel);
 void S_StopAllSounds(qboolean clear);
-void S_ClearBuffer (void);
-void S_Update (vec3_t origin, vec3_t v_forward, vec3_t v_right, vec3_t v_up);
-void S_ExtraUpdate (void);
+void S_ClearBuffer(void);
+void S_Update(vec3_t origin, vec3_t v_forward, vec3_t v_right, vec3_t v_up);
+void S_ExtraUpdate(void);
 
-sfx_t *S_PrecacheSound (char *sample);
-void S_TouchSound (char *sample);
-void S_ClearPrecache (void);
-void S_BeginPrecaching (void);
-void S_EndPrecaching (void);
+sfx_t *S_PrecacheSound(char *sample);
+void S_TouchSound(char *sample);
+void S_ClearPrecache(void);
+void S_BeginPrecaching(void);
+void S_EndPrecaching(void);
 void S_PaintChannels(int endtime);
-void S_InitPaintChannels (void);
+void S_InitPaintChannels(void);
 
 // picks a channel based on priorities, empty slots, number of channels
 channel_t *SND_PickChannel(int entnum, int entchannel);
@@ -117,11 +114,9 @@ void SND_Spatialize(channel_t *ch);
 // initializes cycling through a DMA buffer and returns information on it
 qboolean SNDDMA_Init(void);
 
-// gets the current DMA position
-int SNDDMA_GetDMAPos(void);
-
-// shutdown the DMA xfer.
-void SNDDMA_Shutdown(void);
+// Lock for channels data
+void SNDDMA_LockSoundData(void);
+void SNDDMA_UnlockSoundData(void);
 
 // ====================================================================
 // User-setable variables
@@ -163,15 +158,15 @@ extern qboolean	snd_initialized;
 
 extern int		snd_blocked;
 
-void S_LocalSound (char *s);
-sfxcache_t *S_LoadSound (sfx_t *s);
+void S_LocalSound(char *s);
+sfxcache_t *S_LoadSound(sfx_t *s);
 
-wavinfo_t GetWavinfo (char *name, byte *wav, int wavlength);
+wavinfo_t GetWavinfo(char *name, byte *wav, int wavlength);
 
-void SND_InitScaletable (void);
+void SND_InitScaletable(void);
 void SNDDMA_Submit(void);
 
-void S_AmbientOff (void);
-void S_AmbientOn (void);
+void S_AmbientOff(void);
+void S_AmbientOn(void);
 
 #endif
